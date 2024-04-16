@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 07-12-2023 a las 02:12:35
--- Versión del servidor: 10.4.32-MariaDB
--- Versión de PHP: 8.2.12
+-- Host: 127.0.0.1
+-- Generation Time: Apr 16, 2024 at 04:22 AM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.0.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `hotel`
+-- Database: `hotel`
 --
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `contact`
+-- Table structure for table `contact`
 --
 
 CREATE TABLE `contact` (
@@ -36,10 +36,18 @@ CREATE TABLE `contact` (
   `approval` varchar(12) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
+--
+-- Dumping data for table `contact`
+--
+
+INSERT INTO `contact` (`id`, `fullname`, `phoneno`, `email`, `cdate`, `approval`) VALUES
+(1, 'Mariana Robayo Nieto', 2147483647, 'robayo13.mm@gmail.com', '2023-12-06', 'Not Allowed'),
+(2, 'Lizeth Ropero', 2147483647, 'natikaro1@hotmail.com', '2023-12-06', 'Not Allowed');
+
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `login`
+-- Table structure for table `login`
 --
 
 CREATE TABLE `login` (
@@ -49,7 +57,7 @@ CREATE TABLE `login` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Volcado de datos para la tabla `login`
+-- Dumping data for table `login`
 --
 
 INSERT INTO `login` (`id`, `usname`, `pass`) VALUES
@@ -58,7 +66,7 @@ INSERT INTO `login` (`id`, `usname`, `pass`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `newsletterlog`
+-- Table structure for table `newsletterlog`
 --
 
 CREATE TABLE `newsletterlog` (
@@ -71,7 +79,7 @@ CREATE TABLE `newsletterlog` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `payment`
+-- Table structure for table `payment`
 --
 
 CREATE TABLE `payment` (
@@ -93,7 +101,7 @@ CREATE TABLE `payment` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Volcado de datos para la tabla `payment`
+-- Dumping data for table `payment`
 --
 
 INSERT INTO `payment` (`id`, `title`, `fname`, `lname`, `troom`, `tbed`, `nroom`, `cin`, `cout`, `ttot`, `fintot`, `mepr`, `meal`, `btot`, `noofdays`) VALUES
@@ -104,12 +112,13 @@ INSERT INTO `payment` (`id`, `title`, `fname`, `lname`, `troom`, `tbed`, `nroom`
 (6, 'Dr.', 'Juan jose', 'Ardila', 'Deluxe Room', 'Single', 4, '2023-12-05', '2023-12-29', 21120.00, 21278.40, 105.60, 'Breakfast', 52.80, 24),
 (7, 'Dr.', 'LIZETH', 'ROPERO', 'Single Room', 'Double', 2, '2023-12-06', '2024-02-14', 21000.00, 22050.00, 840.00, 'Full Board', 210.00, 70),
 (8, 'Dr.', 'LIZETH', 'ROPERO', 'Superior Room', 'Single', 1, '2023-12-06', '2023-12-28', 7040.00, 7392.00, 281.60, 'Full Board', 70.40, 22),
-(9, 'Miss.', 'Lizeth Fernanda', 'Ropero Cardenas', 'Superior Room', 'Double', 1, '2023-12-06', '2023-12-13', 2240.00, 2464.00, 179.20, 'Full Board', 44.80, 7);
+(9, 'Miss.', 'Lizeth Fernanda', 'Ropero Cardenas', 'Superior Room', 'Double', 1, '2023-12-06', '2023-12-13', 2240.00, 2464.00, 179.20, 'Full Board', 44.80, 7),
+(10, 'Miss.', 'Mariana', 'Robayo ', 'Deluxe Room', 'Double', 7, '2023-12-06', '2023-12-07', 1540.00, 1553.20, 8.80, 'Breakfast', 4.40, 1);
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `room`
+-- Table structure for table `room`
 --
 
 CREATE TABLE `room` (
@@ -117,35 +126,36 @@ CREATE TABLE `room` (
   `type` varchar(15) DEFAULT NULL,
   `bedding` varchar(10) DEFAULT NULL,
   `place` varchar(10) DEFAULT NULL,
-  `cusid` int(11) DEFAULT NULL
+  `cusid` int(11) DEFAULT NULL,
+  `precio` int(12) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Volcado de datos para la tabla `room`
+-- Dumping data for table `room`
 --
 
-INSERT INTO `room` (`id`, `type`, `bedding`, `place`, `cusid`) VALUES
-(17, 'Superior Room', 'Single', 'Free', 0),
-(18, 'Superior Room', 'Double', 'Free', 0),
-(19, 'Superior Room', 'Triple', 'Free', NULL),
-(20, 'Superior Room', 'Quad', 'Free', NULL),
-(21, 'Guest House', 'Quad', 'Free', NULL),
-(22, 'Guest House', 'Single', 'Free', NULL),
-(23, 'Guest House', 'Double', 'Free', NULL),
-(24, 'Guest House', 'Triple', 'Free', NULL),
-(25, 'Deluxe Room', 'Single', 'Free', NULL),
-(26, 'Deluxe Room', 'Double', 'Free', NULL),
-(27, 'Deluxe Room', 'Triple', 'Free', NULL),
-(28, 'Deluxe Room', 'Quad', 'Free', NULL),
-(29, 'Single Room', 'Single', 'Free', NULL),
-(30, 'Single Room', 'Double', 'Free', NULL),
-(31, 'Single Room', 'Triple', 'Free', NULL),
-(32, 'Single Room', 'Quad', 'Free', NULL);
+INSERT INTO `room` (`id`, `type`, `bedding`, `place`, `cusid`, `precio`) VALUES
+(17, 'Superior Room', 'Single', 'Free', 0, 250000),
+(18, 'Superior Room', 'Double', 'Free', 0, 250000),
+(19, 'Superior Room', 'Triple', 'Free', NULL, 250000),
+(20, 'Superior Room', 'Quad', 'Free', NULL, 250000),
+(21, 'Extra Room', 'Quad', 'Free', NULL, 345000),
+(22, 'Guest House', 'Single', 'Free', NULL, 150000),
+(23, 'Guest House', 'Double', 'Free', NULL, 150000),
+(24, 'Guest House', 'Triple', 'Free', NULL, 150000),
+(25, 'Deluxe Room', 'Single', 'Free', NULL, 600000),
+(26, 'Deluxe Room', 'Double', 'Free', 0, 600000),
+(27, 'Deluxe Room', 'Triple', 'Free', NULL, 600000),
+(28, 'Prueba Room', 'Quad', 'Free', NULL, 460000),
+(29, 'Single Room', 'Single', 'Free', NULL, 195000),
+(30, 'Single Room', 'Double', 'Free', NULL, 195000),
+(31, 'Single Room', 'Triple', 'Free', NULL, 195000),
+(32, 'Single Room', 'Quad', 'Free', NULL, 195000);
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `roombook`
+-- Table structure for table `roombook`
 --
 
 CREATE TABLE `roombook` (
@@ -168,72 +178,80 @@ CREATE TABLE `roombook` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Índices para tablas volcadas
+-- Dumping data for table `roombook`
+--
+
+INSERT INTO `roombook` (`id`, `Title`, `FName`, `LName`, `Email`, `National`, `Country`, `Phone`, `TRoom`, `Bed`, `NRoom`, `Meal`, `cin`, `cout`, `stat`, `nodays`) VALUES
+(11, 'Miss.', 'Mariana', 'Robayo ', 'robayo13.mrn@gmail.com', 'Sri Lankan', 'Colombia', '3209923144', 'Superior Room', 'Double', '3', 'Breakfast', '2024-02-24', '2024-02-25', 'Not Conform', 1),
+(12, 'Miss.', 'Esteban David Florez', 'tolosa', 'estebandafloto@gmail.com', 'Sri Lankan', 'Colombia', '+573156850416', 'Superior Room', 'Single', '5', 'Room only', '2024-04-01', '2024-04-25', 'Not Conform', 24);
+
+--
+-- Indexes for dumped tables
 --
 
 --
--- Indices de la tabla `contact`
+-- Indexes for table `contact`
 --
 ALTER TABLE `contact`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `login`
+-- Indexes for table `login`
 --
 ALTER TABLE `login`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `newsletterlog`
+-- Indexes for table `newsletterlog`
 --
 ALTER TABLE `newsletterlog`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `room`
+-- Indexes for table `room`
 --
 ALTER TABLE `room`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `roombook`
+-- Indexes for table `roombook`
 --
 ALTER TABLE `roombook`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT de las tablas volcadas
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT de la tabla `contact`
+-- AUTO_INCREMENT for table `contact`
 --
 ALTER TABLE `contact`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT de la tabla `login`
+-- AUTO_INCREMENT for table `login`
 --
 ALTER TABLE `login`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT de la tabla `newsletterlog`
+-- AUTO_INCREMENT for table `newsletterlog`
 --
 ALTER TABLE `newsletterlog`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de la tabla `room`
+-- AUTO_INCREMENT for table `room`
 --
 ALTER TABLE `room`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
--- AUTO_INCREMENT de la tabla `roombook`
+-- AUTO_INCREMENT for table `roombook`
 --
 ALTER TABLE `roombook`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

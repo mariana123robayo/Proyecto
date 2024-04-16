@@ -261,7 +261,7 @@ include('db.php');
 						<img src="images/teams2.jpg" alt=" " class="img-responsive" />
 					</li>
 					<li>
-						<img src="images/teams3.jpg" alt=" " class="img-responsive" />
+						<img src="images/teams3.jpg" alt="" class="img-responsive" />
 					</li>
 					</ul>
 					<div class="resp-tabs-container">
@@ -288,8 +288,8 @@ include('db.php');
 						<div class="col-md-6 team-img-w3-agile">
 						</div>
 						<div class="col-md-6 team-Info-agileits">
-							<h4>Lizeth Ropero</h4>
-							<span>Gerente</span>
+							<h4>Esteban Florez </h4>
+							<span>Administrador T.I</span>
 							<p>Como gerente, mi enfoque está centrado en la excelencia en el servicio. Creo firmemente que la clave para el éxito es una mezcla de comodidad, atención personalizada y detalles excepcionales.</p>
 						<div class="social-bnr-agileits footer-icons-agileinfo">
 							<ul class="social-icons3">
@@ -424,66 +424,60 @@ include('db.php');
 	 <!-- rooms & rates -->
       <div class="plans-section" id="rooms">
 				 <div class="container">
-				 <h3 class="title-w3-agileits title-black-wthree">Habitaciones y tarifas
-</h3>
-						<div class="priceing-table-main">
-				 <div class="col-md-3 price-grid">
-					<div class="price-block agile">
-						<div class="price-gd-top">
-						<img src="images/r1.jpg" alt=" " class="img-responsive" />
-							<h4>Habitación de lujo
-</h4>
-						</div>
-						<div class="price-gd-bottom">
-							   <div class="price-list">
-									<ul>
-											<li><i class="fa fa-star" aria-hidden="true"></i></li>
-											<li><i class="fa fa-star" aria-hidden="true"></i></li>
-											<li><i class="fa fa-star" aria-hidden="true"></i></li>
-											<li><i class="fa fa-star" aria-hidden="true"></i></li>
-											<li><i class="fa fa-star-o" aria-hidden="true"></i></li>
-									
-								     </ul>
+				 <h3 class="title-w3-agileits title-black-wthree">Habitaciones y tarifas</h3>
+					<div class="priceing-table-main">
+				 		
+
+				<?php
+					require 'db.php';
+
+					// Consulta para obtener las habitaciones
+					$sql = "SELECT DISTINCT type, precio FROM room";
+					$result = $con->query($sql);
+
+					if ($result->num_rows > 0) {
+						while($row = $result->fetch_assoc()) {
+							
+							$room_type = $row['type'];
+							$room_precio =$row['precio'];
+					?>
+					<div class="col-md-3 price-grid ">
+								<div class="price-block agile">
+									<div class="price-gd-top">
+										<img src="images/r2.jpg" alt=" " class="img-responsive" />
+										<h4><?php echo $room_type; ?></h4>
+									</div>
+									<div class="price-gd-bottom">
+										<div class="price-list">
+											<ul>
+												<li><i class="fa fa-star" aria-hidden="true"></i></li>
+												<li><i class="fa fa-star" aria-hidden="true"></i></li>
+												<li><i class="fa fa-star" aria-hidden="true"></i></li>
+												<li><i class="fa fa-star" aria-hidden="true"></i></li>
+												<li><i class="fa fa-star-o" aria-hidden="true"></i></li>
+											</ul>
+										</div>
+										<div class="price-selet">
+											<h3><span>$</span><?php echo $room_precio; ?></h3>
+											<a href="admin/reservation.php" >Reservar ahora </a>
+										</div>
+									</div>
+								</div>
 							</div>
-							<div class="price-selet">	
-								<h3><span>$</span>320</h3>						
-								<a href="admin/reservation.php" >	Reservar ahora
-</a>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-3 price-grid ">
-					<div class="price-block agile">
-						<div class="price-gd-top">
-						<img src="images/r2.jpg" alt=" " class="img-responsive" />
-							<h4>Habitación de lujo
-</h4>
-						</div>
-						<div class="price-gd-bottom">
-							<div class="price-list">
-									<ul>
-									<li><i class="fa fa-star" aria-hidden="true"></i></li>
-									<li><i class="fa fa-star" aria-hidden="true"></i></li>
-									<li><i class="fa fa-star" aria-hidden="true"></i></li>
-									<li><i class="fa fa-star" aria-hidden="true"></i></li>
-									<li><i class="fa fa-star-o" aria-hidden="true"></i></li>
-								</ul>
-							</div>
-							<div class="price-selet">
-								<h3><span>$</span>220</h3>
-								<a href="admin/reservation.php" >Reservar ahora
-</a>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-3 price-grid lost">
+					<?php
+						}
+					} else {
+						echo "0 resultados";
+					}
+					$con->close();
+					?>
+
+
+				<!-- <div class="col-md-3 price-grid lost">
 					<div class="price-block agile">
 						<div class="price-gd-top">
 						<img src="images/r3.jpg" alt=" " class="img-responsive" />
-							<h4>Casa de huespedes
-e</h4>
+							<h4>Casa de huespedese</h4>
 						</div>
 						<div class="price-gd-bottom">
 							<div class="price-list">
@@ -497,8 +491,7 @@ e</h4>
 							</div>
 							<div class="price-selet">
 								<h3><span>$</span>180</h3>
-								<a href="admin/reservation.php" >Reservar ahora
-</a>
+								<a href="admin/reservation.php" >Reservar ahora</a>
 							</div>
 						</div>
 					</div>
@@ -507,8 +500,7 @@ e</h4>
 					<div class="price-block agile">
 						<div class="price-gd-top ">
 							<img src="images/r4.jpg" alt=" " class="img-responsive" />
-							<h4>Habitación simple
-</h4>
+							<h4>Habitación simple</h4>
 						</div>
 						<div class="price-gd-bottom">
 							<div class="price-list">
@@ -522,12 +514,11 @@ e</h4>
 							</div>
 							<div class="price-selet">
 								<h3><span>$</span> 150</h3>
-								<a href="admin/reservation.php" >Reservar ahora
-</a>
+								<a href="admin/reservation.php" >Reservar ahora </a>
 							</div>
 						</div>
 					</div>
-				</div>
+				</div> -->
 				<div class="clearfix"> </div>
 			</div>
 		</div>
