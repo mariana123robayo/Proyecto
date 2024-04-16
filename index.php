@@ -440,6 +440,7 @@ include('db.php');
 							
 							$room_type = $row['type'];
 							$room_precio =$row['precio'];
+							
 					?>
 					<div class="col-md-3 price-grid ">
 								<div class="price-block agile">
@@ -459,7 +460,7 @@ include('db.php');
 										</div>
 										<div class="price-selet">
 											<h3><span>$</span><?php echo $room_precio; ?></h3>
-											<a href="admin/reservation.php" >Reservar ahora </a>
+											<a href="admin/reservation.php">Reservar ahora </a>
 										</div>
 									</div>
 								</div>

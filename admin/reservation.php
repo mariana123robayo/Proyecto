@@ -1,3 +1,5 @@
+<link href='fullcalendar-scheduler/main.css' rel='stylesheet' />
+<script src='fullcalendar-scheduler/main.js'></script>
 <?php
 include('db.php')
 ?>
@@ -6,7 +8,7 @@ include('db.php')
 <head>
       <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MOONLIGHT RESERVACION</title>
+    <title>MOONLIGHT RESERVACIÓN</title>
 	<!-- Bootstrap Styles-->
     <link href="assets/css/bootstrap.css" rel="stylesheet" />
      <!-- FontAwesome Styles-->
@@ -18,28 +20,64 @@ include('db.php')
   
 </head>
 <body>
+    
     <div id="wrapper">
         <nav class="navbar-default navbar-side" role="navigation">
             <div class="sidebar-collapse">
                 <ul class="nav" id="main-menu">
 
                     <li>
-                        <a  href="../index.php"><i class="fa fa-home"></i> Página principal
-</a>
+                        <a  href="../index.php"><i class="fa fa-home"></i> Página principal</a>
                     </li>
                     
-					</ul>
+				</ul>
 
             </div>
 
         </nav>
        
         <div id="page-wrapper" >
+            <div id="calendar"></div>
+       
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    var calendarEl = document.getElementById('calendar');
+            
+                    var calendar = new FullCalendar.Calendar(calendarEl, {
+                        
+                        timeZone: 'UTC',
+                        height: "auto",
+                        aspectRatio: 1.5,
+                        initialView: 'resourceTimelineWeek',
+                        headerToolbar: {
+                            left: 'prev,next',
+                            center: 'title',
+                            right: 'resourceTimelineWeek,dayGridMonth'
+                        },
+                        slotDuration: '24:00:00',
+                        resourceAreaWidth: '20%',
+                        resourceAreaHeaderContent: 'Rooms',
+
+                        resources: [
+                            <?php
+                            $rooms = $con->query("SELECT * from `room` order by `type` asc ");
+                            while ($row = $rooms->fetch_assoc()) :
+                            ?> {
+                                    id: '<?php echo $row['type'] ?>',
+                                    title: '<?php echo $row['bedding'] ?>'
+                                },
+                            <?php endwhile; ?>
+                        ]
+                    });
+            
+                    calendar.render(); // Render the calendar
+                    });
+            </script>
             <div id="page-inner">
 			 <div class="row">
                     <div class="col-md-12">
                         <h1 class="page-header">
-                            RESERVACION <small></small>
+                            RESERVACIÓN <small></small>
                         </h1>
                     </div>
                 </div> 
@@ -50,7 +88,7 @@ include('db.php')
                 <div class="col-md-5 col-sm-5">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
-INFORMACION PERSONAL
+INFORMACIÓN PERSONAL
                         </div>
                         <div class="panel-body">
 						<form name="form" method="post">                        
@@ -109,50 +147,42 @@ INFORMACION PERSONAL
                         <div class="panel-body">
 								<div class="form-group">
                                             <label>Tipo de habitación*</label>
-                                            <select name="troom"  class="form-control" required>
-												<option value selected ></option>
-                                                <option value="Superior Room">  HABITACIÓN SUPERIOR</option>
-                                                <option value="Deluxe Room">HABITACIÓN DE LUJO</option>
-												<option value="Guest House">CASA DE HUESPEDES</option>
-												<option value="Single Room">HABITACIÓN INDIVIDUAL
-</option>
+                                            <select name="troom" class="form-control" required>
+                                            <option value selected ></option>
+                                                    <?php
+                                                        $sql_type = "SELECT DISTINCT type FROM room";
+                                                        $result_type = $con->query($sql_type);
+                                                        if ($result_type->num_rows > 0) {
+                                                            while ($row_type = $result_type->fetch_assoc()) {
+                                                                $type = $row_type['type'];
+                                                                echo "<option value='$type'>$type</option>";
+                                                            }
+                                                        }
+                                                     ?>
                                             </select>
                               </div>
 							  <div class="form-group">
-                                            <label>Tipo de cama
-</label>
+                                            <label>Tipo de cama</label>
                                             <select name="bed" class="form-control" required>
-												<option value selected ></option>
-                                                <option value="Single">Simple</option>
-                                                <option value="Double">Double</option>
-												<option value="Triple">Triple</option>
-                                                <option value="Quad">Cuatro</option>
-												<option value="None">Ninguna</option>
-                                                
-                                             
+                                            <option value selected ></option>
+                                            <?php
+                                                        $sql_bed = "SELECT DISTINCT bedding FROM room";
+                                                        $result_bed = $con->query($sql_bed);
+                                                        if ($result_bed->num_rows > 0) {
+                                                            while ($row_bed = $result_bed->fetch_assoc()) {
+                                                                $bed = $row_bed['bedding'];
+                                                                echo "<option value='$bed'>$bed</option>";
+                                                            }
+                                                        }
+                                                     ?>
                                             </select>
                               </div>
-							  <div class="form-group">
-                                            <label>No. de habitación *</label>
-                                            <select name="nroom" class="form-control" required>
-												<option value selected ></option>
-                                                <option value="1">1</option>
-                                            <option value="2">2</option>
-												<option value="3">3</option>
-												<option value="4">4</option>
-												<option value="5">5</option>
-												<option value="6">6</option>
-												<option value="7">7</option> 
-                                            </select>
-                              </div>
-							 
-							 
+							  
 							  <div class="form-group">
                                             <label>Régimen de comidas</label>
                                             <select name="meal" class="form-control"required>
 												<option value selected ></option>
-                                                <option value="Room only">Sólo habitación
-</option>
+                                                <option value="Room only">Sólo habitación</option>
                                                 <option value="Breakfast">Desayuno</option>
 												<option value="Half Board">Madia pizarra</option>
 												<option value="Full Board">Pensión completa</option>
