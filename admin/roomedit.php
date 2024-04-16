@@ -98,7 +98,7 @@ if (!isset($_SESSION["user"])) {
                 <div class="row">
                     <div class="col-md-12">
                         <h1 class="page-header">
-                            NUEVO CUARTO <small></small>
+                            ACTUALIZAR HABITACIÓN <small></small>
                         </h1>
                     </div>
                 </div>
@@ -109,7 +109,7 @@ if (!isset($_SESSION["user"])) {
                     <div class="col-md-5 col-sm-5">
                         <div class="panel panel-primary">
                             <div class="panel-heading">
-                                AGREGAR NUEVA SALA
+                                EDITAR NUEVA SALA
 
                             </div>
                             <div class="panel-body">
@@ -173,85 +173,6 @@ if (!isset($_SESSION["user"])) {
 
                         </div>
                     </div>
-
-
-                    <div class="row">
-                        <div class="col-md-6 col-sm-6">
-                            <div class="panel panel-primary">
-                                <div class="panel-heading">
-                                    INFORMACIÓN DE HABITACIONES
-
-                                </div>
-                                <div class="panel-body">
-                                    <!-- Advanced Tables -->
-                                    <div class="panel panel-default">
-                                        <?php
-                                        $sql = "select * from room limit 0,10";
-                                        $re = mysqli_query($con, $sql)
-                                            ?>
-                                        <div class="panel-body">
-                                            <div class="table-responsive">
-                                                <table class="table table-striped table-bordered table-hover"
-                                                    id="dataTables-example">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>ID</th>
-                                                            <th>Habitación</th>
-                                                            <th>Tipo</th>
-                                                            <th>Precio</th>
-                                                            <th>Actions</th>
-
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-
-                                                        <?php
-                                                        while ($row = mysqli_fetch_array($re)) {
-                                                            $id = $row['id'];
-                                                            if ($id % 2 == 0) {
-                                                                echo "<tr class=odd gradeX>
-													<td>" . $row['id'] . "</td>
-													<td>" . $row['type'] . "</td>
-												   <th>" . $row['bedding'] . "</th>
-                                                   <td> " . $row['precio'] . "</td>
-                                                   <td class='btn-container'>
-                                                   <button class='btn btn-warning editar-habitacion' data-id='" . $row['id'] . "'>Editar</button>
-                                                   <button class='btn btn-danger eliminar-habitacion' data-id='" . $row['id'] . "'>Eliminar</button>
-                                                   </td>
-												</tr>";
-                                                            } else {
-                                                                echo "<tr class=even gradeC>
-													<td>" . $row['id'] . "</td>
-													<td>" . $row['type'] . "</td>
-												   <th>" . $row['bedding'] . "</th>
-                                                   <td>" . $row['precio'] . "</td>
-                                                   <td class='btn-container'>
-                                                   <button type='button' class='btn btn-warning editar-habitacion' data-id='" . $row['id'] . "'>Editar</button>
-                                                   <button type='button' class='btn btn-danger eliminar-habitacion' data-id='" . $row['id'] . "'>Eliminar</button>
-                                                   </td>
-
-												</tr>";
-
-                                                            }
-                                                        }
-                                                        ?>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                    <!--End Advanced Tables -->
-
-                                </div>
-
-                            </div>
-                        </div>
-
-
-                    </div>
-
-
 
                 </div>
                 <!-- /. PAGE INNER  -->
