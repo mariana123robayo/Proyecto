@@ -37,14 +37,13 @@ include('db.php')
         </nav>
        
         <div id="page-wrapper" >
-            <div id="calendar"></div>
-       
+        <div class="calendar-container">
+                <div id="calendar"></div>
+            </div>
             <script>
                 document.addEventListener('DOMContentLoaded', function() {
                     var calendarEl = document.getElementById('calendar');
-            
                     var calendar = new FullCalendar.Calendar(calendarEl, {
-                        
                         timeZone: 'UTC',
                         height: "auto",
                         aspectRatio: 1.5,
@@ -52,27 +51,32 @@ include('db.php')
                         headerToolbar: {
                             left: 'prev,next',
                             center: 'title',
-                            right: 'resourceTimelineWeek,dayGridMonth'
+                            right: 'resourceTimelineWeek'
                         },
                         slotDuration: '24:00:00',
                         resourceAreaWidth: '20%',
-                        resourceAreaHeaderContent: 'Rooms',
-
+                        resourceAreaHeaderContent: 'Camas',
                         resources: [
                             <?php
-                            $rooms = $con->query("SELECT * from `room` order by `type` asc ");
+                            $rooms = $con->query("SELECT DISTINCT bedding FROM room where type = 'Deluxe Room';"  ); //AQUI SE DEBE INSERTAR LA VARIABLE PARA QUE SE REALICE DE FOMA DINAMICA LA CONSULTA
                             while ($row = $rooms->fetch_assoc()) :
                             ?> {
-                                    id: '<?php echo $row['type'] ?>',
-                                    title: '<?php echo $row['bedding'] ?>'
-                                },
+                            
+                                title: '<?php echo $row['bedding'] ?>'
+                            },
                             <?php endwhile; ?>
                         ]
                     });
-            
-                    calendar.render(); // Render the calendar
+                    calendar.render();
+                    $(".fc-license-message").hide();
+
+                    var tipoHabitacion = document.getElementById('tipoHabitacion');//CON ESTA FUNCION CAPTURO LA VARIABLE Y LA GUARDO CON EL NOMBRE DE selectedRoomType
+                    tipoHabitacion.addEventListener('change', function() {
+                        var selectedRoomType = this.value;         
                     });
+                });
             </script>
+
             <div id="page-inner">
 			 <div class="row">
                     <div class="col-md-12">
@@ -147,8 +151,8 @@ INFORMACIÓN PERSONAL
                         <div class="panel-body">
 								<div class="form-group">
                                             <label>Tipo de habitación*</label>
-                                            <select name="troom" class="form-control" required>
-                                            <option value selected ></option>
+                                            <select id="tipoHabitacion" name="troom" class="form-control" required>
+                                                <option value selected ></option>
                                                     <?php
                                                         $sql_type = "SELECT DISTINCT type FROM room";
                                                         $result_type = $con->query($sql_type);
@@ -160,6 +164,7 @@ INFORMACIÓN PERSONAL
                                                         }
                                                      ?>
                                             </select>
+                                            
                               </div>
 							  <div class="form-group">
                                             <label>Tipo de cama</label>
@@ -176,6 +181,15 @@ INFORMACIÓN PERSONAL
                                                         }
                                                      ?>
                                             </select>
+                                            <script>
+                                                 var cama = document.querySelector('select[name="bed"]');
+                                                cama.addEventListener('change', function() {
+                                                    var valueCama = this.value;
+                                                    console.log('Tipo de cama  seleccionado:', valueCama);
+                                                    
+                                                    
+                                                });
+                                            </script>
                               </div>
 							  
 							  <div class="form-group">
