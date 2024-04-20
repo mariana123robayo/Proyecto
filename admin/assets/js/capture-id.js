@@ -9,7 +9,7 @@ editarButtons.forEach(function (button) {
         window.location.href = 'roomedit.php?id=' + habitacionId;
     });
 });
-
+ 
 //Funcion que envia un POST con el id de la habitacion a eliminar
 eliminarButtons.forEach(function (button) {
     button.addEventListener('click', function () {
