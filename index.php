@@ -261,7 +261,7 @@ include('db.php');
 						<img src="images/teams2.jpg" alt=" " class="img-responsive" />
 					</li>
 					<li>
-						<img src="images/teams3.jpg" alt="" class="img-responsive" />
+						<img src="images/teams3.jpeg" alt="" class="img-responsive" style="height: 130px;" />
 					</li>
 					</ul>
 					<div class="resp-tabs-container">
@@ -290,7 +290,7 @@ include('db.php');
 						<div class="col-md-6 team-Info-agileits">
 							<h4>Esteban Florez </h4>
 							<span>Administrador T.I</span>
-							<p>Como gerente, mi enfoque está centrado en la excelencia en el servicio. Creo firmemente que la clave para el éxito es una mezcla de comodidad, atención personalizada y detalles excepcionales.</p>
+							<p>Como administrador, mi enfoque está centrado en la excelencia en el servicio y la usabilidad del sistema. Creo firmemente que la clave para el éxito es una mezcla de comodidad, atención personalizada y detalles excepcionales.</p>
 						<div class="social-bnr-agileits footer-icons-agileinfo">
 							<ul class="social-icons3">
 								<li><a href="#" class="fa fa-facebook icon-border facebook"> </a></li>

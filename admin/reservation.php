@@ -20,7 +20,65 @@ include ('db.php')
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
 
 </head>
+            <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                var calendarEl = document.getElementById('calendar');
+                var calendar = new FullCalendar.Calendar(calendarEl, {
+                    timeZone: 'UTC',
+                    height: "auto",
+                    aspectRatio: 1.5,
+                    initialView: 'resourceTimelineWeek',
+                    headerToolbar: {
+                        left: 'prev,next',
+                        center: 'title',
+                        right: 'resourceTimelineWeek'
+                    },
+                    slotDuration: '24:00:00',
+                    resourceAreaWidth: '20%',
+                    resourceAreaHeaderContent: 'Camas',
+                    resources: [],
+                    events: []
+                });
 
+                calendar.render();
+                $(".fc-license-message").hide();
+
+                
+                document.getElementById('tipoHabitacion').addEventListener('change', function() {
+                var tipoHabitacion = this.value;  
+
+                 // Fetch new events based on the selected room type
+                fetch('getEvents.php?tipoHabitacion=' + encodeURIComponent(tipoHabitacion))
+                    .then(function(response) {
+                        return response.json();  
+                    })
+                    .then(function(events) {
+                        // Clear any existing events
+                        calendar.removeAllEvents();
+
+                        // Add new events
+                        events.forEach(function(event) {
+                            calendar.addEvent(event);
+                        });
+                    })
+                    .catch(function(error) {
+                        console.error('Error while fetching events:', error);
+                    });
+
+                fetch('getRoomData.php?tipoHabitacion=' + encodeURIComponent(tipoHabitacion))
+                    .then(function(response) {
+                        return response.json();  
+                    })
+                    .then(function(data) {
+                        
+                        calendar.setOption('resources', data);
+                    })
+                    .catch(function(error) {
+                        console.error('Error al cargar los recursos:', error);
+                    });
+            });
+                });
+            </script>
 <body>
 
     <div id="wrapper">
@@ -39,46 +97,10 @@ include ('db.php')
         </nav>
 
         <div id="page-wrapper">
-            <div class="calendar-container">
+        <div class="calendar-container">
                 <div id="calendar"></div>
             </div>
-            <script>
-                document.addEventListener('DOMContentLoaded', function () {
-                    var calendarEl = document.getElementById('calendar');
-                    var calendar = new FullCalendar.Calendar(calendarEl, {
-                        timeZone: 'UTC',
-                        height: "auto",
-                        aspectRatio: 1.5,
-                        initialView: 'resourceTimelineWeek',
-                        headerToolbar: {
-                            left: 'prev,next',
-                            center: 'title',
-                            right: 'resourceTimelineWeek'
-                        },
-                        slotDuration: '24:00:00',
-                        resourceAreaWidth: '20%',
-                        resourceAreaHeaderContent: 'Camas',
-                        resources: [
-                            <?php
-                            if (isset($_POST['selectedType'])) {
-                                include ('db.php');
-                                $selectedType = $_POST['selectedType'];
-                                $rooms = $con->query("SELECT DISTINCT bedding FROM room where type = '$selectedType';"); //AQUI SE DEBE INSERTAR LA VARIABLE PARA QUE SE REALICE DE FOMA DINAMICA LA CONSULTA
-                                echo "tipo de habitacion: $selectedType";
-                                
-                                while ($row = $rooms->fetch_assoc()):
-                                    ?> {
-                                        title: '<?php echo $row['bedding'] ?>'
-                                    },
-                                <?php endwhile;
-                            } 
-                            ?>
-                        ]
-                    });
-                    calendar.render();
-                    $(".fc-license-message").hide();
-                });
-            </script>
+          
 
             <div id="page-inner">
                 <div class="row">
@@ -175,7 +197,7 @@ include ('db.php')
                                         <select name="bed" class="form-control" required>
                                             <option value selected></option>
                                             <?php
-                                            $sql_bed = "SELECT DISTINCT bedding FROM room";
+                                            $sql_bed = "SELECT DISTINCT bedding FROM room " ;
                                             $result_bed = $con->query($sql_bed);
                                             if ($result_bed->num_rows > 0) {
                                                 while ($row_bed = $result_bed->fetch_assoc()) {
@@ -185,15 +207,7 @@ include ('db.php')
                                             }
                                             ?>
                                         </select>
-                                        <script>
-                                            var cama = document.querySelector('select[name="bed"]');
-                                            cama.addEventListener('change', function () {
-                                                var valueCama = this.value;
-                                                //console.log('Tipo de cama  seleccionado:', valueCama);
-
-
-                                            });
-                                        </script>
+                                        
                                     </div>
 
                                     <div class="form-group">
@@ -222,6 +236,7 @@ include ('db.php')
                                 </div>
 
                             </div>
+                            
                         </div>
 
 
@@ -286,6 +301,7 @@ include ('db.php')
         </div>
         <!-- /. PAGE WRAPPER  -->
     </div>
+   
     <!-- /. WRAPPER  -->
     <!-- JS Scripts-->
     <!-- jQuery Js -->
