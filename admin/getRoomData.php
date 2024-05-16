@@ -10,6 +10,7 @@ if (isset($_GET['tipoHabitacion'])) {
 
     $resources = array();
     while ($row = $result->fetch_assoc()) {
+        $row['id'] = $row['title'];
         $resources[] = $row;  
         
     }

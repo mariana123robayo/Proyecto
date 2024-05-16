@@ -1,5 +1,6 @@
 <link href='fullcalendar-scheduler/main.css' rel='stylesheet' />
 <script src='fullcalendar-scheduler/main.js'></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <?php
 include ('db.php')
     ?>
@@ -193,23 +194,29 @@ include ('db.php')
                                         </select>
                                     </div>
 
-                                    <div class=" form-group">
-                                        <label>Tipo de cama</label>
-                                        <select name="bed" class="form-control" required>
-                                            <option value selected> </option>
-                                            <?php
-                                            $sql_bed = "SELECT DISTINCT bedding FROM room " ;
-                                            $result_bed = $con->query($sql_bed);
-                                            if ($result_bed->num_rows > 0) {
-                                                while ($row_bed = $result_bed->fetch_assoc()) {
-                                                    $bed = $row_bed['bedding'];
-                                                    echo "<option value='$bed'>$bed</option>";
+                                    <div class="form-group">
+                                    <label>Tipo de cama</label>
+                                    <select id="tipoCama" name="bed" class="form-control" required>
+                                        <option value selected> Seleccione una habitación primero</option>
+                                    </select>
+                                </div>
+
+                                
+                                <script>
+                                    $(document).ready(function() {
+                                        $('#tipoHabitacion').change(function() {
+                                            var tipoHabitacion = $(this).val();
+                                            $.ajax({
+                                                url: 'getCamas.php',
+                                                method: 'POST',
+                                                data: { tipoHabitacion: tipoHabitacion },
+                                                success: function(response) {
+                                                    $('#tipoCama').html(response);
                                                 }
-                                            }
-                                            ?>
-                                        </select>
-                                        
-                                    </div>
+                                            });
+                                        });
+                                    });
+                                </script>
 
                                     <div class="form-group">
                                         <label>Régimen de comidas</label>
@@ -225,40 +232,38 @@ include ('db.php')
                                         </select>
                                     </div>
                                     <div class="form-group">
-    <label>Entrada</label>
-    <input name="cin" type="date" class="form-control" id="fechaEntrada">
-</div>
-<div class="form-group">
-    <label>Salida</label>
-    <input name="cout" type="date" class="form-control" id="fechaSalida">
-</div>
+                                    <label>Entrada</label>
+                                    <input name="cin" type="date" class="form-control" id="fechaEntrada">
+                                </div>
+                                <div class="form-group">
+                                    <label>Salida</label>
+                                    <input name="cout" type="date" class="form-control" id="fechaSalida">
+                                </div>
 
-<script>
-    // Función para verificar la fecha de salida
-    function verificarFechaSalida() {
-        var fechaEntrada = document.getElementById("fechaEntrada").value;
-        var fechaSalida = document.getElementById("fechaSalida").value;
+                                <script>
+                                    // Función para verificar la fecha de salida
+                                    function verificarFechaSalida() {
+                                        var fechaEntrada = document.getElementById("fechaEntrada").value;
+                                        var fechaSalida = document.getElementById("fechaSalida").value;
 
-        if (fechaSalida < fechaEntrada) {
-            alert("La fecha de salida debe ser posterior a la fecha de entrada");
-            document.getElementById("fechaSalida").value = "";
-        }
-    }
+                                        if (fechaSalida < fechaEntrada) {
+                                            alert("La fecha de salida debe ser posterior a la fecha de entrada");
+                                            document.getElementById("fechaSalida").value = "";
+                                        }
+                                    }
 
-    // Obtener la fecha actual
-    var fechaActual = new Date();
-    var dd = String(fechaActual.getDate()).padStart(2, '0');
-    var mm = String(fechaActual.getMonth() + 1).padStart(2, '0'); // Enero es 0
-    var yyyy = fechaActual.getFullYear();
-    var fechaHoy = yyyy + '-' + mm + '-' + dd;
+                                    // Obtener la fecha actual
+                                    var fechaActual = new Date();
+                                    var dd = String(fechaActual.getDate()).padStart(2, '0');
+                                    var mm = String(fechaActual.getMonth() + 1).padStart(2, '0'); 
+                                    var yyyy = fechaActual.getFullYear();
+                                    var fechaHoy = yyyy + '-' + mm + '-' + dd;
 
-    // Establecer la fecha mínima para los campos de entrada de fecha
-    document.getElementById("fechaEntrada").setAttribute("min", fechaHoy);
-    
+                                    document.getElementById("fechaEntrada").setAttribute("min", fechaHoy);
+                                    
 
-    // Agregar un evento onchange para verificar la fecha de salida
-    document.getElementById("fechaSalida").addEventListener("change", verificarFechaSalida);
-</script>
+                                    document.getElementById("fechaSalida").addEventListener("change", verificarFechaSalida);
+                                </script>
                                 </div>
 
                             </div>
