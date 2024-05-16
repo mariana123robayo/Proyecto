@@ -29,9 +29,9 @@ include ('db.php')
                     aspectRatio: 1.5,
                     initialView: 'resourceTimelineWeek',
                     headerToolbar: {
-                        left: 'prev,next',
+                        left: 'prev,next,today',
                         center: 'title',
-                        right: 'resourceTimelineWeek'
+                        right: 'resourceTimelineWeek,dayGridMonth'
                     },
                     slotDuration: '24:00:00',
                     resourceAreaWidth: '20%',
@@ -42,6 +42,7 @@ include ('db.php')
 
                 calendar.render();
                 $(".fc-license-message").hide();
+                
 
                 
                 document.getElementById('tipoHabitacion').addEventListener('change', function() {
@@ -195,7 +196,7 @@ include ('db.php')
                                     <div class=" form-group">
                                         <label>Tipo de cama</label>
                                         <select name="bed" class="form-control" required>
-                                            <option value selected></option>
+                                            <option value selected> </option>
                                             <?php
                                             $sql_bed = "SELECT DISTINCT bedding FROM room " ;
                                             $result_bed = $con->query($sql_bed);
@@ -224,15 +225,40 @@ include ('db.php')
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <label>Entrada</label>
-                                        <input name="cin" type="date" class="form-control">
+    <label>Entrada</label>
+    <input name="cin" type="date" class="form-control" id="fechaEntrada">
+</div>
+<div class="form-group">
+    <label>Salida</label>
+    <input name="cout" type="date" class="form-control" id="fechaSalida">
+</div>
 
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Salida</label>
-                                        <input name="cout" type="date" class="form-control">
+<script>
+    // Función para verificar la fecha de salida
+    function verificarFechaSalida() {
+        var fechaEntrada = document.getElementById("fechaEntrada").value;
+        var fechaSalida = document.getElementById("fechaSalida").value;
 
-                                    </div>
+        if (fechaSalida < fechaEntrada) {
+            alert("La fecha de salida debe ser posterior a la fecha de entrada");
+            document.getElementById("fechaSalida").value = "";
+        }
+    }
+
+    // Obtener la fecha actual
+    var fechaActual = new Date();
+    var dd = String(fechaActual.getDate()).padStart(2, '0');
+    var mm = String(fechaActual.getMonth() + 1).padStart(2, '0'); // Enero es 0
+    var yyyy = fechaActual.getFullYear();
+    var fechaHoy = yyyy + '-' + mm + '-' + dd;
+
+    // Establecer la fecha mínima para los campos de entrada de fecha
+    document.getElementById("fechaEntrada").setAttribute("min", fechaHoy);
+    
+
+    // Agregar un evento onchange para verificar la fecha de salida
+    document.getElementById("fechaSalida").addEventListener("change", verificarFechaSalida);
+</script>
                                 </div>
 
                             </div>
@@ -266,11 +292,11 @@ include ('db.php')
                                         $rs = mysqli_query($con, $check);
                                         $data = mysqli_fetch_array($rs, MYSQLI_NUM);
                                         if ($data[0] > 1) {
-                                            echo "<script type='text/javascript'> alert('El usuario ya existe')</script>";
+                                             echo "<script type='text/javascript'> alert('El usuario ya existe')</script>";
 
                                         } else {
                                             $new = "Not Conform";
-                                            $newUser = "INSERT INTO `roombook`(`Title`, `FName`, `LName`, `Email`, `National`, `Country`, `Phone`, `TRoom`, `Bed`, `NRoom`, `Meal`, `cin`, `cout`,`stat`,`nodays`) VALUES ('$_POST[title]','$_POST[fname]','$_POST[lname]','$_POST[email]','$_POST[nation]','$_POST[country]','$_POST[phone]','$_POST[troom]','$_POST[bed]','$_POST[nroom]','$_POST[meal]','$_POST[cin]','$_POST[cout]','$new',datediff('$_POST[cout]','$_POST[cin]'))";
+                                            $newUser = "INSERT INTO `roombook`(`FName`, `LName`, `Email`,  `Country`, `Phone`, `TRoom`, `Bed`, `Meal`, `cin`, `cout`,`stat`,`nodays`) VALUES ('$_POST[fname]','$_POST[lname]','$_POST[email]','$_POST[country]','$_POST[phone]','$_POST[troom]','$_POST[bed]','$_POST[meal]','$_POST[cin]','$_POST[cout]','$new',datediff('$_POST[cout]','$_POST[cin]'))";
                                             if (mysqli_query($con, $newUser)) {
                                                 echo "<script type='text/javascript'> alert('Su solicitud de reserva ha sido enviadat')</script>";
 
