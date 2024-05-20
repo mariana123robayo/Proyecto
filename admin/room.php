@@ -153,10 +153,10 @@ if (!isset($_SESSION["user"])) {
                                     $bed = $_POST['bed'];
                                     $place = 'Free';
                                     $precio = $_POST['precio'];
-                                
+
                                     $check = "SELECT * FROM room WHERE type = '$room' AND bedding = '$bed' AND precio = '$precio'";
                                     $rs = mysqli_query($con, $check);
-                                
+
                                     if ($rs && mysqli_num_rows($rs) > 0) {
                                         echo "<script type='text/javascript'> alert('La habitacion ya existe!!')</script>";
                                     } else {
@@ -168,7 +168,6 @@ if (!isset($_SESSION["user"])) {
                                         }
                                     }
                                 }
-                                
                                 ?>
                             </div>
 
@@ -187,7 +186,7 @@ if (!isset($_SESSION["user"])) {
                                     <!-- Advanced Tables -->
                                     <div class="panel panel-default">
                                         <?php
-                                        $sql = "select * from room limit 0,16";
+                                        $sql = "select * from room limit 0,10";
                                         $re = mysqli_query($con, $sql)
                                             ?>
                                         <div class="panel-body">
