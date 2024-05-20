@@ -17,6 +17,8 @@ if (!isset($_SESSION["user"])) {
     <link href="assets/css/font-awesome.css" rel="stylesheet" />
     <!-- Custom Styles-->
     <link href="assets/css/custom-styles.css" rel="stylesheet" />
+    <!-- Nav Styles-->
+    <link href="assets/css/nav.css" rel="stylesheet" />
     <!-- Google Fonts-->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
 </head>
@@ -186,9 +188,20 @@ if (!isset($_SESSION["user"])) {
                                     <!-- Advanced Tables -->
                                     <div class="panel panel-default">
                                         <?php
-                                        $sql = "select * from room limit 0,10";
-                                        $re = mysqli_query($con, $sql)
-                                            ?>
+                                        // Obtener habitaciones con límite y offset
+                                        $items_per_page = 5;
+                                        $page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
+                                        $offset = ($page - 1) * $items_per_page;
+                                        $sql = "SELECT * FROM room LIMIT $offset, $items_per_page";
+                                        $re = $con->query($sql);
+
+                                        // Obtener el número total de habitaciones
+                                        $total_sql = "SELECT COUNT(*) as total FROM room";
+                                        $total_result = $con->query($total_sql);
+                                        $total_row = $total_result->fetch_assoc();
+                                        $total_items = $total_row['total'];
+                                        $total_pages = ceil($total_items / $items_per_page);
+                                        ?>
                                         <div class="panel-body">
                                             <div class="table-responsive">
                                                 <table class="table table-striped table-bordered table-hover"
@@ -238,7 +251,23 @@ if (!isset($_SESSION["user"])) {
                                                     </tbody>
                                                 </table>
                                             </div>
+                                            <nav class="pagination-nav">
+                                                <ul>
+                                                    <?php if ($page > 1): ?>
+                                                        <li><a href="?page=<?php echo $page - 1; ?>">Anterior</a></li>
+                                                    <?php endif; ?>
 
+                                                    <?php for ($i = 1; $i <= $total_pages; $i++): ?>
+                                                        <li><a href="?page=<?php echo $i; ?>">
+                                                                <?php echo $i; ?>
+                                                            </a></li>
+                                                    <?php endfor; ?>
+
+                                                    <?php if ($page < $total_pages): ?>
+                                                        <li><a href="?page=<?php echo $page + 1; ?>">Siguiente</a></li>
+                                                    <?php endif; ?>
+                                                </ul>
+                                            </nav>
                                         </div>
                                     </div>
                                     <!--End Advanced Tables -->

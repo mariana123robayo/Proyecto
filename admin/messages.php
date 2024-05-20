@@ -90,13 +90,7 @@ if(!isset($_SESSION["user"]))
 					<li>
                         <a  href="room.php"><i class="fa fa-plus-circle"></i>Agregar habitación</a>
                     </li>
-                    <li>
-                        <a   href="roomdel.php"><i class="fa fa-pencil-square-o"></i> Eliminar habitación</a>
-                    </li>
-                    
 
-
-                    
             </div>
 
         </nav>

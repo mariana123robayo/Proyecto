@@ -30,7 +30,7 @@ if(!isset($_SESSION["user"]))
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="home.php">ADMIN </a>
+                <a class="navbar-brand" href="home.php"><?php echo $_SESSION["user"]; ?> </a>
             </div>
 
             <ul class="nav navbar-top-links navbar-right">
@@ -82,12 +82,7 @@ if(!isset($_SESSION["user"]))
 					<li>
                         <a  href="room.php"><i class="fa fa-plus-circle"></i>Agregar habitación</a>
                     </li>
-                    <li>
-                        <a   href="roomdel.php"><i class="fa fa-pencil-square-o"></i> Eliminar habitación</a>
-                    </li>
-					
 
-                    
             </div>
 
         </nav>

@@ -1,0 +1,32 @@
+/*----------------------------------------------
+    NAV table 
+------------------------------------------------*/
+
+.pagination-nav {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.pagination-nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.pagination-nav ul li {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.pagination-nav ul li a {
+    display: block;
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.pagination-nav ul li a:hover {
+    background-color: #0056b3;
+}

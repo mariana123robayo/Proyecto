@@ -110,64 +110,78 @@ if (!isset($_SESSION["user"])) {
                         <div class="panel panel-primary">
                             <div class="panel-heading">
                                 EDITAR NUEVA SALA
-
                             </div>
-                            <div class="panel-body">
-                                <form name="form" method="post">
+
+                            <?php
+                            include('db.php');
+
+                            if (isset($_GET['id'])) {
+                                $id = $_GET['id'];
+                                $sql = "SELECT * FROM room WHERE id = $id";
+                                $result = mysqli_query($con, $sql);
+                                if ($result) {
+                                    $room = mysqli_fetch_assoc($result);
+                                } else {
+                                    echo "Error al obtener los datos de la habitación.";
+                                    exit;
+                                }
+                            }
+                        ?>
+
+                        <div class="panel-body">
+                                <form name="form" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+                                    <input type="hidden" name="id_hab" value="<?php echo $room['id']; ?>">
+
                                     <div class="form-group">
-                                        <label> Tipo de habitación
-                                            *</label>
+                                        <label> Tipo de habitación *</label>
                                         <select name="troom" class="form-control" required>
-                                            <option value selected></option>
-                                            <option value="Superior Room">HABITACIÓN SUPERIOR</option>
-                                            <option value="Deluxe Room">HABITACIÓN DE LUJO</option>
-                                            <option value="Guest House">CASA DE HUESPEDES</option>
-                                            <option value="Single Room">HABITACIÓN INDIVIDUAL</option>
+                                            <option value=""></option>
+                                            <option value="Superior Room" <?php echo $room['type'] == 'Superior Room' ? 'selected' : ''; ?>>HABITACIÓN SUPERIOR</option>
+                                            <option value="Deluxe Room" <?php echo $room['type'] == 'Deluxe Room' ? 'selected' : ''; ?>>HABITACIÓN DE LUJO</option>
+                                            <option value="Guest House" <?php echo $room['type'] == 'Guest House' ? 'selected' : ''; ?>>CASA DE HUESPEDES</option>
+                                            <option value="Single Room" <?php echo $room['type'] == 'Single Room' ? 'selected' : ''; ?>>HABITACIÓN INDIVIDUAL</option>
                                         </select>
                                     </div>
 
                                     <div class="form-group">
                                         <label>Tipo de cama</label>
                                         <select name="bed" class="form-control" required>
-                                            <option value selected></option>
-                                            <option value="Single">Simple</option>
-                                            <option value="Double">Double</option>
-                                            <option value="Triple">Triple</option>
-                                            <option value="Quad">Cuadruple</option>
-                                            <option value="Triple">Ninguna</option>
-
+                                            <option value=""></option>
+                                            <option value="Single" <?php echo $room['bedding'] == 'Single' ? 'selected' : ''; ?>>Simple</option>
+                                            <option value="Double" <?php echo $room['bedding'] == 'Double' ? 'selected' : ''; ?>>Double</option>
+                                            <option value="Triple" <?php echo $room['bedding'] == 'Triple' ? 'selected' : ''; ?>>Triple</option>
+                                            <option value="Quad" <?php echo $room['bedding'] == 'Quad' ? 'selected' : ''; ?>>Cuadruple</option>
+                                            <option value="Triple" <?php echo $room['bedding'] == 'Triple' ? 'selected' : ''; ?>>Ninguna</option>
                                         </select>
-
                                     </div>
 
                                     <div class="form-group">
                                         <label>Precio</label>
-                                        <input type="number" name="precio" class="form-control" required>
+                                        <input type="number" name="precio" class="form-control" value="<?php echo $room['precio']; ?>" required>
                                     </div>
-                                    <input type="submit" name="add" value="Agregar" class="btn btn-primary">
+
+                                    <input type="submit" name="update" value="Actualizar" class="btn btn-primary">
                                 </form>
+
                                 <?php
-                                include ('db.php');
-                                if (isset($_POST['add'])) {
-                                    $room = $_POST['troom'];
-                                    $bed = $_POST['bed'];
-                                    $place = 'Free';
-                                    $precio = $_POST['precio'];
+                                    include('db.php');
 
-                                    $check = "SELECT * FROM room WHERE type = '$room' AND bedding = '$bed' AND precio = '$precio'";
-                                    $rs = mysqli_query($con, $check);
+                                    if (isset($_POST['update'])) {
+                                        $id = $_POST['id_hab'];
+                                        $room = $_POST['troom'];
+                                        $bed = $_POST['bed'];
+                                        $place = $_POST['$place']; 
+                                        $precio = $_POST['precio'];
 
-                                    if ($rs && mysqli_num_rows($rs) > 0) {
-                                        echo "<script type='text/javascript'> alert('La habitacion ya existe!!')</script>";
-                                    } else {
-                                        $sql = "INSERT INTO `room` (`type`, `bedding`, `place`, `cusid`, `precio`) VALUES ('$room', '$bed', '$place', NULL, '$precio')";
+                                        // Consulta SQL para actualizar el registro
+                                        $sql = "UPDATE `room` SET `type` = '$room', `bedding` = '$bed', `place` = '$place', `cusid` = NULL, `precio` = '$precio' WHERE `id` = $id";
+
                                         if (mysqli_query($con, $sql)) {
-                                            echo '<script>alert("Nueva habitacion agregada") </script>';
+                                            echo '<script>alert("Habitación actualizada correctamente"); window.location.href = "room.php";</script>';
                                         } else {
-                                            echo '<script>alert("Lo sineto, algo ha fallado :(") </script>';
+                                            echo '<script>alert("Lo siento, algo ha fallado :("); window.location.href = "roomedit.php?id=' . $id . '";</script>';
                                         }
                                     }
-                                }
                                 ?>
                             </div>
 
@@ -175,6 +189,7 @@ if (!isset($_SESSION["user"])) {
                     </div>
 
                 </div>
+
                 <!-- /. PAGE INNER  -->
             </div>
             <!-- /. PAGE WRAPPER  -->

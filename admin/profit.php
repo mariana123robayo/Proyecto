@@ -99,13 +99,10 @@ $chart_data = substr($chart_data, 0, -2);
                     </li>
                     
                     <li>
-                        <a class="home-menu" href="settings.php"><i class="fa fa-dashboard"></i>Estados de cuartos</a>
+                        <a class="home-menu" href="settings.php"><i class="fa fa-dashboard"></i>Estados de habitaciones</a>
                     </li>
 					<li>
-                        <a  href="room.php"><i class="fa fa-plus-circle"></i>Agregar cuartos</a>
-                    </li>
-                    <li>
-                        <a   href="roomdel.php"><i class="fa fa-pencil-square-o"></i> Eliminar cuartos</a>
+                        <a  href="room.php"><i class="fa fa-plus-circle"></i>Agregar habitación</a>
                     </li>
 					</ul>
 
