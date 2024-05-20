@@ -100,7 +100,7 @@ if(!isset($_SESSION["user"]))
 			 <div class="row">
                     <div class="col-md-12">
                         <h1 class="page-header">
-                        Mensajes Masivos
+                        Mensajes Masivos:
 <small> panel</small>
                         </h1>
                     </div>

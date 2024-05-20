@@ -103,7 +103,7 @@ if(!isset($_SESSION["user"]))
                 <div class="row">
                     <div class="col-md-12">
                         <h1 class="page-header">
-                            estado <small>Reserva de habitacion
+                            Estado: <small>Reserva de habitacion
  </small>
                         </h1>
                     </div>

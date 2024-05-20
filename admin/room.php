@@ -100,7 +100,7 @@ if (!isset($_SESSION["user"])) {
                 <div class="row">
                     <div class="col-md-12">
                         <h1 class="page-header">
-                            NUEVO CUARTO <small></small>
+                            Nueva Habitación <small></small>
                         </h1>
                     </div>
                 </div>
