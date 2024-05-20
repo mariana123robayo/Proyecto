@@ -1,9 +1,7 @@
 <link href='fullcalendar-scheduler/main.css' rel='stylesheet' />
 <script src='fullcalendar-scheduler/main.js'></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<?php
-include ('db.php')
-    ?>
+<?php include ('db.php'); ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -21,66 +19,67 @@ include ('db.php')
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
 
 </head>
-            <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                var calendarEl = document.getElementById('calendar');
-                var calendar = new FullCalendar.Calendar(calendarEl, {
-                    timeZone: 'UTC',
-                    height: "auto",
-                    aspectRatio: 1.5,
-                    initialView: 'resourceTimelineWeek',
-                    headerToolbar: {
-                        left: 'prev,next,today',
-                        center: 'title',
-                        right: 'resourceTimelineWeek,dayGridMonth'
-                    },
-                    slotDuration: '24:00:00',
-                    resourceAreaWidth: '20%',
-                    resourceAreaHeaderContent: 'Camas',
-                    resources: [],
-                    events: []
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            timeZone: 'UTC',
+            height: "auto",
+            aspectRatio: 1.5,
+            initialView: 'resourceTimelineWeek',
+            headerToolbar: {
+                left: 'prev,next,today',
+                center: 'title',
+                right: 'resourceTimelineWeek,dayGridMonth'
+            },
+            slotDuration: '24:00:00',
+            resourceAreaWidth: '20%',
+            resourceAreaHeaderContent: 'Camas',
+            resources: [],
+            events: []
+        });
+
+        calendar.render();
+        $(".fc-license-message").hide();
+
+
+
+        document.getElementById('tipoHabitacion').addEventListener('change', function () {
+            var tipoHabitacion = this.value;
+
+            // Fetch new events based on the selected room type
+            fetch('getEvents.php?tipoHabitacion=' + encodeURIComponent(tipoHabitacion))
+                .then(function (response) {
+                    return response.json();
+                })
+                .then(function (events) {
+                    // Clear any existing events
+                    calendar.removeAllEvents();
+
+                    // Add new events
+                    events.forEach(function (event) {
+                        calendar.addEvent(event);
+                    });
+                })
+                .catch(function (error) {
+                    console.error('Error while fetching events:', error);
                 });
 
-                calendar.render();
-                $(".fc-license-message").hide();
-                
+            fetch('getRoomData.php?tipoHabitacion=' + encodeURIComponent(tipoHabitacion))
+                .then(function (response) {
+                    return response.json();
+                })
+                .then(function (data) {
 
-                
-                document.getElementById('tipoHabitacion').addEventListener('change', function() {
-                var tipoHabitacion = this.value;  
-
-                 // Fetch new events based on the selected room type
-                fetch('getEvents.php?tipoHabitacion=' + encodeURIComponent(tipoHabitacion))
-                    .then(function(response) {
-                        return response.json();  
-                    })
-                    .then(function(events) {
-                        // Clear any existing events
-                        calendar.removeAllEvents();
-
-                        // Add new events
-                        events.forEach(function(event) {
-                            calendar.addEvent(event);
-                        });
-                    })
-                    .catch(function(error) {
-                        console.error('Error while fetching events:', error);
-                    });
-
-                fetch('getRoomData.php?tipoHabitacion=' + encodeURIComponent(tipoHabitacion))
-                    .then(function(response) {
-                        return response.json();  
-                    })
-                    .then(function(data) {
-                        
-                        calendar.setOption('resources', data);
-                    })
-                    .catch(function(error) {
-                        console.error('Error al cargar los recursos:', error);
-                    });
-            });
+                    calendar.setOption('resources', data);
+                })
+                .catch(function (error) {
+                    console.error('Error al cargar los recursos:', error);
                 });
-            </script>
+        });
+    });
+</script>
+
 <body>
 
     <div id="wrapper">
@@ -99,10 +98,10 @@ include ('db.php')
         </nav>
 
         <div id="page-wrapper">
-        <div class="calendar-container">
+            <div class="calendar-container">
                 <div id="calendar"></div>
             </div>
-          
+
 
             <div id="page-inner">
                 <div class="row">
@@ -195,28 +194,28 @@ include ('db.php')
                                     </div>
 
                                     <div class="form-group">
-                                    <label>Tipo de cama</label>
-                                    <select id="tipoCama" name="bed" class="form-control" required>
-                                        <option value selected> Seleccione una habitación primero</option>
-                                    </select>
-                                </div>
+                                        <label>Tipo de cama</label>
+                                        <select id="tipoCama" name="bed" class="form-control" required>
+                                            <option value selected> Seleccione una habitación primero</option>
+                                        </select>
+                                    </div>
 
-                                
-                                <script>
-                                    $(document).ready(function() {
-                                        $('#tipoHabitacion').change(function() {
-                                            var tipoHabitacion = $(this).val();
-                                            $.ajax({
-                                                url: 'getCamas.php',
-                                                method: 'POST',
-                                                data: { tipoHabitacion: tipoHabitacion },
-                                                success: function(response) {
-                                                    $('#tipoCama').html(response);
-                                                }
+
+                                    <script>
+                                        $(document).ready(function () {
+                                            $('#tipoHabitacion').change(function () {
+                                                var tipoHabitacion = $(this).val();
+                                                $.ajax({
+                                                    url: 'getCamas.php',
+                                                    method: 'POST',
+                                                    data: { tipoHabitacion: tipoHabitacion },
+                                                    success: function (response) {
+                                                        $('#tipoCama').html(response);
+                                                    }
+                                                });
                                             });
                                         });
-                                    });
-                                </script>
+                                    </script>
 
                                     <div class="form-group">
                                         <label>Régimen de comidas</label>
@@ -232,42 +231,42 @@ include ('db.php')
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                    <label>Entrada</label>
-                                    <input name="cin" type="date" class="form-control" id="fechaEntrada">
-                                </div>
-                                <div class="form-group">
-                                    <label>Salida</label>
-                                    <input name="cout" type="date" class="form-control" id="fechaSalida">
-                                </div>
+                                        <label>Entrada</label>
+                                        <input name="cin" type="date" class="form-control" id="fechaEntrada">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Salida</label>
+                                        <input name="cout" type="date" class="form-control" id="fechaSalida">
+                                    </div>
 
-                                <script>
-                                    // Función para verificar la fecha de salida
-                                    function verificarFechaSalida() {
-                                        var fechaEntrada = document.getElementById("fechaEntrada").value;
-                                        var fechaSalida = document.getElementById("fechaSalida").value;
+                                    <script>
+                                        // Función para verificar la fecha de salida
+                                        function verificarFechaSalida() {
+                                            var fechaEntrada = document.getElementById("fechaEntrada").value;
+                                            var fechaSalida = document.getElementById("fechaSalida").value;
 
-                                        if (fechaSalida < fechaEntrada) {
-                                            alert("La fecha de salida debe ser posterior a la fecha de entrada");
-                                            document.getElementById("fechaSalida").value = "";
+                                            if (fechaSalida < fechaEntrada) {
+                                                alert("La fecha de salida debe ser posterior a la fecha de entrada");
+                                                document.getElementById("fechaSalida").value = "";
+                                            }
                                         }
-                                    }
 
-                                    // Obtener la fecha actual
-                                    var fechaActual = new Date();
-                                    var dd = String(fechaActual.getDate()).padStart(2, '0');
-                                    var mm = String(fechaActual.getMonth() + 1).padStart(2, '0'); 
-                                    var yyyy = fechaActual.getFullYear();
-                                    var fechaHoy = yyyy + '-' + mm + '-' + dd;
+                                        // Obtener la fecha actual
+                                        var fechaActual = new Date();
+                                        var dd = String(fechaActual.getDate()).padStart(2, '0');
+                                        var mm = String(fechaActual.getMonth() + 1).padStart(2, '0');
+                                        var yyyy = fechaActual.getFullYear();
+                                        var fechaHoy = yyyy + '-' + mm + '-' + dd;
 
-                                    document.getElementById("fechaEntrada").setAttribute("min", fechaHoy);
-                                    
+                                        document.getElementById("fechaEntrada").setAttribute("min", fechaHoy);
 
-                                    document.getElementById("fechaSalida").addEventListener("change", verificarFechaSalida);
-                                </script>
+
+                                        document.getElementById("fechaSalida").addEventListener("change", verificarFechaSalida);
+                                    </script>
                                 </div>
 
                             </div>
-                            
+
                         </div>
 
 
@@ -293,12 +292,19 @@ include ('db.php')
                                     } else {
 
                                         $con = mysqli_connect("localhost", "root", "", "hotel");
-                                        $check = "SELECT * FROM roombook WHERE email = '$_POST[email]'";
-                                        $rs = mysqli_query($con, $check);
-                                        $data = mysqli_fetch_array($rs, MYSQLI_NUM);
-                                        if ($data[0] > 1) {
-                                             echo "<script type='text/javascript'> alert('El usuario ya existe')</script>";
-
+                                        $check = "SELECT * FROM roombook WHERE email = ?";
+                                        $stmt = mysqli_prepare($con, $check);
+                                        mysqli_stmt_bind_param($stmt, "s", $_POST['email']);
+                                        mysqli_stmt_execute($stmt);
+                                        $rs = mysqli_stmt_get_result($stmt);
+                                        if (mysqli_num_rows($rs) > 0) {
+                                            // La consulta devuelve al menos una fila
+                                            $data = mysqli_fetch_array($rs, MYSQLI_NUM);
+                                            // Ahora puedes acceder a los datos
+                                            if ($data !== null && $data[0] > 1)
+                                                // Usuario encontrado
+                                                echo "<script type='text/javascript'> alert('El usuario ya existe')</script>";
+                                                
                                         } else {
                                             $new = "Not Conform";
                                             $newUser = "INSERT INTO `roombook`(`FName`, `LName`, `Email`,  `Country`, `Phone`, `TRoom`, `Bed`, `Meal`, `cin`, `cout`,`stat`,`nodays`) VALUES ('$_POST[fname]','$_POST[lname]','$_POST[email]','$_POST[country]','$_POST[phone]','$_POST[troom]','$_POST[bed]','$_POST[meal]','$_POST[cin]','$_POST[cout]','$new',datediff('$_POST[cout]','$_POST[cin]'))";
@@ -332,7 +338,7 @@ include ('db.php')
         </div>
         <!-- /. PAGE WRAPPER  -->
     </div>
-   
+
     <!-- /. WRAPPER  -->
     <!-- JS Scripts-->
     <!-- jQuery Js -->
