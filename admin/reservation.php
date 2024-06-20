@@ -225,7 +225,7 @@ include ('db.php')
                                             <option value="Room only">Sólo habitación</option>
                                             <option value="Breakfast">Desayuno</option>
                                             <option value="Lunch">Almuerzo</option>
-                                            <option value="Lunch">Cena</option>
+                                            <option value="Dinner">Cena</option>
                                             <option value="Full Board">Alimentación Completa</option>
 
 

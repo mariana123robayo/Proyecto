@@ -242,14 +242,18 @@ tr:hover .cut { opacity: 1; }
 									else if($meal=="Breakfast")
 									{
 										$type_of_meal=$type_of_bed * 2;
-									}else if($meal=="Half Board")
+									}else if($meal=="Lunch")
 									{
 										$type_of_meal=$type_of_bed * 3;
 									
-									}else if($meal=="Full Board")
+									}else if($meal=="Dinner")
 									{
 										$type_of_meal=$type_of_bed * 4;
+									}else if($meal=="Full Board")
+									{
+										$type_of_meal=$type_of_bed * 5;
 									}
+									
 	
 	?>
 		<header>
