@@ -261,7 +261,7 @@ include('db.php');
 						<img src="images/teams2.jpg" alt=" " class="img-responsive" />
 					</li>
 					<li>
-						<img src="images/teams3.jpeg" alt="" class="img-responsive" style="height: 130px;" />
+						<img src="images/teams3.jpeg" alt="" class="img-responsive" style="height: 120px; width: 120px" />
 					</li>
 					</ul>
 					<div class="resp-tabs-container">
@@ -439,23 +439,54 @@ include('db.php');
 						while($row = $result->fetch_assoc()) {
 							
 							$room_type = $row['type'];
-							$room_precio =$row['precio'];
-							
-					?>
-					<div class="col-md-3 price-grid ">
+							$room_precio = $row['precio'];
+
+							// Asigna el nombre de la imagen basado en el tipo de habitación
+							$image_filename = '';
+							switch (strtolower(str_replace(' ', '', $room_type))) {
+								case 'superiorroom':
+									$image_filename = 'double.jpg'; // Nombre de la imagen para Superior Room
+									break;
+								case 'deluxeroom':
+									$image_filename = 'deluxe.jpg'; // Nombre de la imagen para Deluxe Room
+									break;
+								case 'singleroom':
+									$image_filename = 'single.jpg'; // Nombre de la imagen para Single Room
+									break;
+								case 'guesthouse':
+									$image_filename = 'guest.jpg'; // Nombre de la imagen para Guest House
+									break;
+								default:
+									// Default image si no hay coincidencia (opcional)
+									$image_filename = 'default.jpg';
+									break;
+							}
+
+							// Construye la ruta completa de la imagen
+							$image_path = 'images/' . $image_filename;
+
+							?>
+							<div class="col-md-3 price-grid lost">
 								<div class="price-block agile">
 									<div class="price-gd-top">
-										<img src="images/r2.jpg" alt=" " class="img-responsive" />
+										<img src="<?php echo $image_path; ?>" alt="<?php echo $room_type; ?>"
+											class="img-responsive" />
 										<h4><?php echo $room_type; ?></h4>
 									</div>
 									<div class="price-gd-bottom">
 										<div class="price-list">
 											<ul>
-												<li><i class="fa fa-star" aria-hidden="true"></i></li>
-												<li><i class="fa fa-star" aria-hidden="true"></i></li>
-												<li><i class="fa fa-star" aria-hidden="true"></i></li>
-												<li><i class="fa fa-star" aria-hidden="true"></i></li>
-												<li><i class="fa fa-star-o" aria-hidden="true"></i></li>
+												<?php
+												// Calcula el número de estrellas a mostrar (ejemplo)
+												$stars = 4; // Ejemplo de número de estrellas
+												for ($i = 0; $i < 5; $i++) {
+													if ($i < $stars) {
+														echo '<li><i class="fa fa-star" aria-hidden="true"></i></li>';
+													} else {
+														echo '<li><i class="fa fa-star-o" aria-hidden="true"></i></li>';
+													}
+												}
+												?>
 											</ul>
 										</div>
 										<div class="price-selet">
@@ -709,7 +740,7 @@ include('db.php');
 </section>
 <!-- /contact -->
 			<div class="copy">
-		        <p>© 2022  <a href="index.php">MOON LIGHT</a> </p>
+		        <p>© 2024  <a href="index.php">MOON LIGHT</a> </p>
 		    </div>
 <!--/footer -->
 <!-- js -->
