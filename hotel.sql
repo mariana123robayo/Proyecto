@@ -36,14 +36,6 @@ CREATE TABLE `contact` (
   `approval` varchar(12) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
---
--- Dumping data for table `contact`
---
-
-INSERT INTO `contact` (`id`, `fullname`, `phoneno`, `email`, `cdate`, `approval`) VALUES
-(1, 'Mariana Robayo Nieto', 2147483647, 'robayo13.mm@gmail.com', '2023-12-06', 'Not Allowed'),
-(2, 'Lizeth Ropero', 2147483647, 'natikaro1@hotmail.com', '2023-12-06', 'Not Allowed');
-
 -- --------------------------------------------------------
 
 --
@@ -92,11 +84,11 @@ CREATE TABLE `payment` (
   `nroom` int(11) DEFAULT NULL,
   `cin` date DEFAULT NULL,
   `cout` date DEFAULT NULL,
-  `ttot` double(8,2) DEFAULT NULL,
-  `fintot` double(8,2) DEFAULT NULL,
-  `mepr` double(8,2) DEFAULT NULL,
+  `ttot` double(12,0) DEFAULT NULL,
+  `fintot` double(12,0) DEFAULT NULL,
+  `mepr` double(12,0) DEFAULT NULL,
   `meal` varchar(30) DEFAULT NULL,
-  `btot` double(8,2) DEFAULT NULL,
+  `btot` double(12,0) DEFAULT NULL,
   `noofdays` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
@@ -105,15 +97,17 @@ CREATE TABLE `payment` (
 --
 
 INSERT INTO `payment` (`id`, `title`, `fname`, `lname`, `troom`, `tbed`, `nroom`, `cin`, `cout`, `ttot`, `fintot`, `mepr`, `meal`, `btot`, `noofdays`) VALUES
-(2, 'Dr.', 'Richard ', 'Baily', 'Superior Room', 'Double', 1, '2018-01-05', '2018-01-26', 6720.00, 7123.20, 268.80, 'Breakfast', 134.40, 21),
-(3, 'Mr.', 'Carmen', 'Tajada', 'Deluxe Room', 'Double', 1, '2018-02-01', '2018-02-15', 3080.00, 3264.80, 123.20, 'Breakfast', 61.60, 14),
-(4, 'Dr.', 'Reyner', 'Baily', 'Guest House', 'Single', 1, '2018-01-16', '2018-01-25', 1620.00, 1701.00, 64.80, 'Full Board', 16.20, 9),
-(5, 'Dr.', 'Guillermo', 'Daza', 'Deluxe Room', 'Double', 2, '2023-12-05', '2023-12-30', 11000.00, 11440.00, 330.00, 'Half Board', 110.00, 25),
-(6, 'Dr.', 'Juan jose', 'Ardila', 'Deluxe Room', 'Single', 4, '2023-12-05', '2023-12-29', 21120.00, 21278.40, 105.60, 'Breakfast', 52.80, 24),
-(7, 'Dr.', 'LIZETH', 'ROPERO', 'Single Room', 'Double', 2, '2023-12-06', '2024-02-14', 21000.00, 22050.00, 840.00, 'Full Board', 210.00, 70),
-(8, 'Dr.', 'LIZETH', 'ROPERO', 'Superior Room', 'Single', 1, '2023-12-06', '2023-12-28', 7040.00, 7392.00, 281.60, 'Full Board', 70.40, 22),
-(9, 'Miss.', 'Lizeth Fernanda', 'Ropero Cardenas', 'Superior Room', 'Double', 1, '2023-12-06', '2023-12-13', 2240.00, 2464.00, 179.20, 'Full Board', 44.80, 7),
-(10, 'Miss.', 'Mariana', 'Robayo ', 'Deluxe Room', 'Double', 7, '2023-12-06', '2023-12-07', 1540.00, 1553.20, 8.80, 'Breakfast', 4.40, 1);
+(52, '', 'Mariana', 'Robayo', 'Superior Room', 'Double', 0, '2024-06-23', '2024-06-24', 0.00, 6.40, 0.00, 'Room only', 6.40, 1),
+(53, '', 'Gabriela', 'Robayo', 'Superior Room', 'Triple', 0, '2024-06-23', '2024-06-24', 0.00, 48.00, 38.40, 'Full Board', 9.60, 1),
+(54, '', 'Natalia', 'Robayo', 'Superior Room', 'Double', 0, '2024-06-25', '2024-06-27', 0.00, 38.40, 25.60, 'Breakfast', 12.80, 2),
+(55, '', 'Mario', 'Robayo', 'Deluxe Room', 'Single', 0, '2024-06-23', '2024-06-24', 0.00, 2.20, 0.00, 'Room only', 2.20, 1),
+(56, '', 'POLO', 'PEREZ', 'Superior Room', 'Triple', 0, '2024-06-24', '2024-06-25', 0.00, 28.80, 19.20, 'Breakfast', 9.60, 1),
+(57, '', 'ARMANDO', 'MENDOZA', 'Superior Room', 'Triple', 0, '2024-06-23', '2024-06-24', 0.00, 9.60, 0.00, 'Dinner', 9.60, 1),
+(58, '', 'dfghjkdlas', 'qwdwqdghjka', 'Superior Room', 'Single', 0, '2024-06-23', '2024-06-24', 0.00, 3.20, 0.00, 'Dinner', 3.20, 1),
+(59, '', 'Marcela', 'Valencia', 'Single Room', 'Double', 0, '2024-06-24', '2024-06-26', 0.00, 30.00, 24.00, 'Full Board', 6.00, 2),
+(60, '', 'Fabian', 'Perez', 'Superior Room', 'Double', 0, '2024-06-25', '2024-06-27', 0.00, 12.80, 0.00, 'Lunch', 12.80, 2),
+(61, '', 'Dario', 'Lopez', 'Guest House', 'Single', 0, '2024-06-24', '2024-06-26', 999999.99, 999999.99, 80000.00, 'Dinner', 20000.00, 2),
+(62, '', 'Paula', 'Gomez', 'Single Room', 'Triple', 0, '2024-06-24', '2024-06-28', 780000.00, 920400.00, 117000.00, 'Full Board', 23400.00, 4);
 
 -- --------------------------------------------------------
 
@@ -137,19 +131,19 @@ CREATE TABLE `room` (
 INSERT INTO `room` (`id`, `type`, `bedding`, `place`, `cusid`, `precio`) VALUES
 (17, 'Superior Room', 'Single', 'Free', 0, 250000),
 (18, 'Superior Room', 'Double', 'Free', 0, 250000),
-(19, 'Superior Room', 'Triple', 'Free', NULL, 250000),
-(20, 'Superior Room', 'Quad', 'Free', NULL, 250000),
-(21, 'Extra Room', 'Quad', 'Free', NULL, 345000),
-(22, 'Guest House', 'Single', 'Free', NULL, 150000),
-(23, 'Guest House', 'Double', 'Free', NULL, 150000),
-(24, 'Guest House', 'Triple', 'Free', NULL, 150000),
-(25, 'Deluxe Room', 'Single', 'Free', NULL, 600000),
+(19, 'Superior Room', 'Triple', 'Free', 0, 250000),
+(20, 'Superior Room', 'Quad', 'Free', 0, 250000),
+(21, 'Guest House', 'Single', 'Free', 0, 1000000),
+(22, 'Guest House', 'Double', 'Free', NULL, 1000000),
+(23, 'Guest House', 'Triple', 'Free', NULL, 1000000),
+(24, 'Guest House', 'Quad', 'Free', NULL, 1000000),
+(25, 'Deluxe Room', 'Single', 'Free', 0, 600000),
 (26, 'Deluxe Room', 'Double', 'Free', 0, 600000),
 (27, 'Deluxe Room', 'Triple', 'Free', NULL, 600000),
-(28, 'Prueba Room', 'Quad', 'Free', NULL, 460000),
-(29, 'Single Room', 'Single', 'Free', NULL, 195000),
-(30, 'Single Room', 'Double', 'Free', NULL, 195000),
-(31, 'Single Room', 'Triple', 'Free', NULL, 195000),
+(28, 'Deluxe Room', 'Quad', 'Free', NULL, 600000),
+(29, 'Single Room', 'Single', 'Free', 0, 195000),
+(30, 'Single Room', 'Double', 'Free', 0, 195000),
+(31, 'Single Room', 'Triple', 'Free', 0, 195000),
 (32, 'Single Room', 'Quad', 'Free', NULL, 195000);
 
 -- --------------------------------------------------------
@@ -178,12 +172,8 @@ CREATE TABLE `roombook` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Dumping data for table `roombook`
+-- Índices para tablas volcadas
 --
-
-INSERT INTO `roombook` (`id`, `Title`, `FName`, `LName`, `Email`, `National`, `Country`, `Phone`, `TRoom`, `Bed`, `NRoom`, `Meal`, `cin`, `cout`, `stat`, `nodays`) VALUES
-(11, 'Miss.', 'Mariana', 'Robayo ', 'robayo13.mrn@gmail.com', 'Sri Lankan', 'Colombia', '3209923144', 'Superior Room', 'Double', '3', 'Breakfast', '2024-02-24', '2024-02-25', 'Not Conform', 1),
-(12, 'Miss.', 'Esteban David Florez', 'tolosa', 'estebandafloto@gmail.com', 'Sri Lankan', 'Colombia', '+573156850416', 'Superior Room', 'Single', '5', 'Room only', '2024-04-01', '2024-04-25', 'Not Conform', 24);
 
 --
 -- Indexes for dumped tables
@@ -202,56 +192,56 @@ ALTER TABLE `login`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `newsletterlog`
+-- Indices de la tabla `newsletterlog`
 --
 ALTER TABLE `newsletterlog`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `room`
+-- Indices de la tabla `room`
 --
 ALTER TABLE `room`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `roombook`
+-- Indices de la tabla `roombook`
 --
 ALTER TABLE `roombook`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT de las tablas volcadas
 --
 
 --
--- AUTO_INCREMENT for table `contact`
+-- AUTO_INCREMENT de la tabla `contact`
 --
 ALTER TABLE `contact`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `login`
+-- AUTO_INCREMENT de la tabla `login`
 --
 ALTER TABLE `login`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `newsletterlog`
+-- AUTO_INCREMENT de la tabla `newsletterlog`
 --
 ALTER TABLE `newsletterlog`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `room`
+-- AUTO_INCREMENT de la tabla `room`
 --
 ALTER TABLE `room`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
--- AUTO_INCREMENT for table `roombook`
+-- AUTO_INCREMENT de la tabla `roombook`
 --
 ALTER TABLE `roombook`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -444,13 +444,13 @@ if (isset($_POST['co'])) {
             // Cálculos relacionados con el precio
             $type_of_room = 0;
             if ($troom == "Superior Room") {
-                $type_of_room = 320;
+                $type_of_room = 250000;
             } else if ($troom == "Deluxe Room") {
-                $type_of_room = 220;
+                $type_of_room = 600000;
             } else if ($troom == "Guest House") {
-                $type_of_room = 180;
+                $type_of_room = 1000000;
             } else if ($troom == "Single Room") {
-                $type_of_room = 150;
+                $type_of_room = 195000;
             }
 
             $type_of_bed = 0;
@@ -462,22 +462,22 @@ if (isset($_POST['co'])) {
                 $type_of_bed = $type_of_room * 3 / 100;
             } else if ($bed == "Quad") {
                 $type_of_bed = $type_of_room * 4 / 100;
-            } else if ($bed == "None") {
-                $type_of_bed = $type_of_room * 0 / 100;
-            }
+            } 
 
             $type_of_meal = 0;
             if ($meal == "Room only") {
                 $type_of_meal = $type_of_bed * 0;
             } else if ($meal == "Breakfast") {
                 $type_of_meal = $type_of_bed * 2;
-            } else if ($meal == "Half Board") {
+            } else if ($meal == "Lunch") {
                 $type_of_meal = $type_of_bed * 3;
-            } else if ($meal == "Full Board") {
+            } else if ($meal == "Dinner") {
                 $type_of_meal = $type_of_bed * 4;
+            } else if ($meal == "Full Board") {
+                $type_of_meal = $type_of_bed * 5;
             }
 
-            $ttot = $type_of_room * $days * $nroom;
+            $ttot = $type_of_room * $days;
             $mepr = $type_of_meal * $days;
             $btot = $type_of_bed * $days;
             $fintot = $ttot + $mepr + $btot;

@@ -198,20 +198,20 @@ tr:hover .cut { opacity: 1; }
 									$type_of_room = 0;       
 									if($troom=="Superior Room")
 									{
-										$type_of_room = 320;
+										$type_of_room = 250000;
 									
 									}
 									else if($troom=="Deluxe Room")
 									{
-										$type_of_room = 220;
+										$type_of_room = 600000;
 									}
 									else if($troom=="Guest House")
 									{
-										$type_of_room = 180;
+										$type_of_room = 1000000;
 									}
 									else if($troom=="Single Room")
 									{
-										$type_of_room = 150;
+										$type_of_room = 195000;
 									}
 									
 									if($bed=="Single")
@@ -256,89 +256,85 @@ tr:hover .cut { opacity: 1; }
 									
 	
 	?>
-		<header>
-			<h1>FACTURA</h1>
-			<address >
-				<p>HOTEL MOONLIGHT,</p>
-				<p>Nueva carretera de Kalmunai,<br>Batusai,<br>Sri Lanka.</p>
-				<p>(+94) 65 222 44 55</p>
-			</address>
-			<span><img alt="" src="assets/img/sun.png"></span>
-		</header>
-		<article>
-			<h1>	Recipiente</h1>
-			<address >
-				<p><?php echo $title.$fname." ".$lname ?> <br></p>
-			</address>
-			<table class="meta">
-				<tr>
-					<th><span >Factura #</span></th>
-					<td><span ><?php echo $id; ?></span></td>
-				</tr>
-				<tr>
-					<th><span >Fecha</span></th>
-					<td><span ><?php echo $cout; ?> </span></td>
-				</tr>
-				
-			</table>
-			<table class="inventory">
-				<thead>
-					<tr>
-						<th><span >Item</span></th>
-						<th><span >No de dias</span></th>
-						<th><span >Tarifa</span></th>
-						<th><span >Cantidad</span></th>
-						<th><span >Precio</span></th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td><span ><?php echo $troom; ?></span></td>
-						<td><span ><?php echo $days; ?> </span></td>
-						<td><span data-prefix>$</span><span ><?php  echo $type_of_room;?></span></td>
-						<td><span ><?php echo $nroom;?> </span></td>
-						<td><span data-prefix>$</span><span><?php echo $ttot; ?></span></td>
-					</tr>
-					<tr>
-						<td><span ><?php echo $bed; ?>  Cama </span></td>
-						<td><span ><?php echo $days; ?></span></td>
-						<td><span data-prefix>$</span><span ><?php  echo $type_of_bed;?></span></td>
-						<td><span ><?php echo $nroom;?> </span></td>
-						<td><span data-prefix>$</span><span><?php echo $btot; ?></span></td>
-					</tr>
-					<tr>
-						<td><span ><?php echo $meal; ?>  </span></td>
-						<td><span ><?php echo $days; ?></span></td>
-						<td><span data-prefix>$</span><span ><?php  echo $type_of_meal?></span></td>
-						<td><span ><?php echo $nroom;?> </span></td>
-						<td><span data-prefix>$</span><span><?php echo $mepr; ?></span></td>
-					</tr>
-				</tbody>
-			</table>
-			
-			<table class="balance">
-				<tr>
-					<th><span >Total</span></th>
-					<td><span data-prefix>$</span><span><?php echo $fintot; ?></span></td>
-				</tr>
-				<tr>
-					<th><span >	Cantidad pagada
-</span></th>
-					<td><span data-prefix>$</span><span >0.00</span></td>
-				</tr>
-				<tr>
-					<th><span >Saldo adeudado</span></th>
-					<td><span data-prefix>$</span><span><?php echo $fintot; ?></span></td>
-				</tr>
-			</table>
-		</article>
-		<aside>
-			<h1><span >Contáctenos</span></h1>
-			<div >
-				<p align="center">Email : emailreal@sgmail.com || Web : http://paginareal.com/ || Phone : +94 65 222 44 55 </p>
-			</div>
-		</aside>
-	</body>
+	 <header>
+    <h1>FACTURA</h1>
+    <address>
+        <p>HOTEL MOONLIGHT,</p>
+        <p>Bucaramanga,<br>Santander,<br>Colombia.</p>
+        <p>(+57) 320 992 3144</p>
+    </address>
+    <span><img alt="" src="assets/img/sun.png"></span>
+</header>
+<article>
+    <h1>Recipiente</h1>
+    <address>
+        <p><?php echo $title.$fname." ".$lname ?> <br></p>
+    </address>
+    <table class="meta">
+        <tr>
+            <th><span>Factura #</span></th>
+            <td><span><?php echo $id; ?></span></td>
+        </tr>
+        <tr>
+            <th><span>Fecha</span></th>
+            <td><span><?php echo $cout; ?> </span></td>
+        </tr>
+    </table>
+    <table class="inventory">
+        <thead>
+            <tr>
+                <th><span>Item</span></th>
+                <th><span>No de dias</span></th>
+                <th><span>Tarifa</span></th>
+                <th><span>Precio</span></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><span><?php echo $troom; ?></span></td>
+                <td><span><?php echo $days; ?> </span></td>
+                <td><span data-prefix>$</span><span><?php echo $type_of_room;?></span></td>
+                <td><span data-prefix>$</span><span><?php echo $ttot; ?></span></td>
+            </tr>
+            <tr>
+                <td><span><?php echo $bed; ?>  Cama </span></td>
+                <td><span><?php echo $days; ?></span></td>
+                <td><span data-prefix>$</span><span><?php echo $type_of_bed;?></span></td>
+                <td><span data-prefix>$</span><span><?php echo $btot; ?></span></td>
+            </tr>
+            <tr>
+                <td><span><?php echo $meal; ?>  </span></td>
+                <td><span><?php echo $days; ?></span></td>
+                <td><span data-prefix>$</span><span><?php echo $type_of_meal?></span></td>
+                <td><span data-prefix>$</span><span><?php echo $mepr; ?></span></td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <table class="balance">
+        <tr>
+            <th><span>Total</span></th>
+            <td><span data-prefix>$</span><span><?php echo $fintot; ?></span></td>
+        </tr>
+        <tr>
+            <th><span>Cantidad pagada</span></th>
+            <td><span data-prefix>$</span><span>0.00</span></td>
+        </tr>
+        <tr>
+            <th><span>Saldo adeudado</span></th>
+            <td><span data-prefix>$</span><span><?php echo $fintot; ?></span></td>
+        </tr>
+    </table>
+</article>
+<aside>
+    <h1><span>Contáctenos</span></h1>
+    <div>
+        <p style="white-space: nowrap; display: inline-block;" align="center">Email: hotelmoonlight@gmail.com || Web: http://hotelmoonlight.com/ || Phone: +57 320 992 3144</p>
+    </div>
+</aside>
+</body>
+
+		
 </html>
 <?php
 $free="Free";
