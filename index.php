@@ -263,6 +263,9 @@ include('db.php');
 					<li>
 						<img src="images/teams3.jpeg" alt="" class="img-responsive" style="height: 130px;" />
 					</li>
+					<li>
+						<img src="images/teams4.jpg" alt="" class="img-responsive" style="height: 130px;" />
+					</li>
 					</ul>
 					<div class="resp-tabs-container">
 					<div class="tab2">
@@ -291,6 +294,24 @@ include('db.php');
 							<h4>Esteban Florez </h4>
 							<span>Administrador T.I</span>
 							<p>Como administrador, mi enfoque está centrado en la excelencia en el servicio y la usabilidad del sistema. Creo firmemente que la clave para el éxito es una mezcla de comodidad, atención personalizada y detalles excepcionales.</p>
+						<div class="social-bnr-agileits footer-icons-agileinfo">
+							<ul class="social-icons3">
+								<li><a href="#" class="fa fa-facebook icon-border facebook"> </a></li>
+								<li><a href="#" class="fa fa-twitter icon-border twitter"> </a></li>
+								<li><a href="#" class="fa fa-google-plus icon-border googleplus"> </a></li> 
+								<li><a href="#" class="fa fa-rss icon-border rss"> </a></li>
+							</ul>
+						</div>							
+						</div>
+						<div class="clearfix"> </div>
+					</div>
+					<div class="tab4">
+						<div class="col-md-6 team-img-w3-agile">
+						</div>
+						<div class="col-md-6 team-Info-agileits">
+							<h4>Dario Villamizar </h4>
+							<span>Product Owner</span>
+							<p>Como Product Owner, mi enfoque va a poder cumplir con todos los requisitos del proyecto y de esta forma porder desarrollarlo de la mejor manera.</p>
 						<div class="social-bnr-agileits footer-icons-agileinfo">
 							<ul class="social-icons3">
 								<li><a href="#" class="fa fa-facebook icon-border facebook"> </a></li>
